@@ -104,9 +104,10 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
     <content><![CDATA[<ul>
 <li>确定分界点：q[l],q[l+r &gt;&gt; 1],q[r]</li>
 <li>调整区间 (&lt;&#x3D;x | &gt;&#x3D;x)</li>
-<li>递归处理</li>
+<li>递归处理<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void quick_sort(int q[], int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    if (l &lt; r)</span><br><span class="line">        return;</span><br><span class="line">    int x = q[l + r &gt;&gt; 2], i = l - 1, j = r + 1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    while (i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        do</span><br><span class="line">            ++i;</span><br><span class="line">        while (q[i] &lt; x);</span><br><span class="line">        do</span><br><span class="line">            ++j;</span><br><span class="line">        while (q[i] &gt; x);</span><br><span class="line">        if (i &lt; j)</span><br><span class="line">            swap(q[i], q[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(q, l, j);</span><br><span class="line">    quick_sort(q, j + 1, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void quick_sort(int q[], int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    if (l &lt; r)</span><br><span class="line">        return;</span><br><span class="line">    int x = q[l + r &gt;&gt; 2], i = l - 1, j = r + 1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    while (i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        do</span><br><span class="line">            ++i;</span><br><span class="line">        while (q[i] &lt; x);</span><br><span class="line">        do</span><br><span class="line">            ++j;</span><br><span class="line">        while (q[i] &gt; x);</span><br><span class="line">        if (i &lt; j)</span><br><span class="line">            swap(q[i], q[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(q, l, j);</span><br><span class="line">    quick_sort(q, j + 1, r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+]]></content>
       <categories>
         <category>算法</category>
         <category>排序</category>
