@@ -1,63 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>箭头函数</title>
-    <url>/2022/12/11/02-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<style>
-    h3 
-    {
-    padding-bottom:5px;
-    border-bottom: solid gray;
-    }
-</style>
-
-
-<h3 id="一、基本语法"><a href="#一、基本语法" class="headerlink" title="一、基本语法"></a>一、基本语法</h3><h5>1.1 定义函数</h5>
-定义箭头函在数语法上要比普通函数简洁得多，ES6中允许使用箭头=>来定义箭头函数，箭头函数省去了 function 关键字，函数的参数放在=>前面的括号中，函数体跟在=>后的花括号中。
-<span id="more"></span>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 箭头函数</span><br><span class="line">let fun = (name) =&gt; &#123;</span><br><span class="line">    return `Hello $&#123;name&#125; !`;</span><br><span class="line">&#125;;</span><br><span class="line">// 普通函数</span><br><span class="line">let fun = function (name) &#123;</span><br><span class="line">    return `Hello $&#123;name&#125; !`;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h5> 1.2 箭头函数的参数</h5>
-① 如果箭头函数没有参数，直接写一个空括号即可。   
-
-<p>② 如果箭头函数的参数只有一个，也可以省去包裹参数的括号。<br>③ 如果箭头函数有多个参数，将参数依次用逗号( ，)分隔，包裹在括号中即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 没有参数</span><br><span class="line">let fun1 = () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;dingFY&#x27;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 只有一个参数，可以省去参数括号</span><br><span class="line">let fun2 = name =&gt; &#123;</span><br><span class="line">    console.log(`Hello $&#123;name&#125; !`)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 有多个参数，逗号分隔</span><br><span class="line">let fun3 = (val1, val2, val3) =&gt; &#123;</span><br><span class="line">    return [val1, val2, val3];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h5> 1.3 箭头函数的函数体</h5>
-① 如果箭头函数的函数体只有一句代码，就是简单返回某个变量或者返回一个简单的JS表达式，可以省去函数体的大括号
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let fun = val =&gt; val;</span><br><span class="line">// 等同于</span><br><span class="line">let fun = function (val) &#123; return val &#125;;</span><br><span class="line"></span><br><span class="line">let sum = (num1, num2) =&gt; num1 + num2;</span><br><span class="line">// 等同于</span><br><span class="line">let sum = function(num1, num2) &#123;</span><br><span class="line">  return num1 + num2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>② 如果箭头函数的函数体只有一句代码，就是返回一个对象，可以像下面这样写</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 用小括号包裹要返回的对象，不报错</span><br><span class="line">let getTempItem = id =&gt; (&#123; id: id, name: &quot;Temp&quot; &#125;);</span><br><span class="line"></span><br><span class="line">// 但绝不能这样写，会报错，因为对象的大括号会被解释为函数体的大括号</span><br><span class="line">let getTempItem = id =&gt; &#123; id: id, name: &quot;Temp&quot; &#125;;</span><br></pre></td></tr></table></figure>
-<p>③ 如果箭头函数的函数体只有一条语句并且不需要返回值（最常见是调用一个函数），可以给这条语句前面加一个void关键字</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let fun = () =&gt; void doesNotReturn();</span><br></pre></td></tr></table></figure>
-<h3 id="二、箭头函数与普通函数的区别"><a href="#二、箭头函数与普通函数的区别" class="headerlink" title="二、箭头函数与普通函数的区别"></a>二、箭头函数与普通函数的区别</h3><h5>2.1  箭头函数没有 prototype (原型)，所以箭头函数本身没有this​​​​​​​ </h5>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 箭头函数</span><br><span class="line">let a = () =&gt; &#123;&#125;;</span><br><span class="line">console.log(a.prototype); // undefined</span><br><span class="line"></span><br><span class="line">// 普通函数</span><br><span class="line">function a() &#123;&#125;;</span><br><span class="line">console.log(a.prototype); // &#123;constructor:f&#125;</span><br></pre></td></tr></table></figure>
-<h5>2.2 箭头函数不会创建自己的this</h5>
-箭头函数没有自己的this，箭头函数的this在指向定义<strong>(注意：是定义时，不是调用时)</strong>的时候继承自外层第一个普通函数的this。所以，箭头函数中 this 的指向在它被定义的时候就已经确定了，之后永远不会改变。
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">  a: 10,</span><br><span class="line">  b: () =&gt; &#123;</span><br><span class="line">    console.log(this.a); // undefined</span><br><span class="line">    console.log(this); // Window &#123;postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, frames: Window, …&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  c: function() &#123;</span><br><span class="line">    console.log(this.a); // 10</span><br><span class="line">    console.log(this); // &#123;a: 10, b: ƒ, c: ƒ&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.b(); </span><br><span class="line">obj.c();</span><br></pre></td></tr></table></figure>
-<h5>2.3 call | apply | bind 无法改变箭头函数中this的指向</h5>
-call | apply | bind方法可以用来动态修改函数执行时this的指向，但由于<strong>箭头函数的this定义时就已经确定且永远不会改变</strong>。所以使用这些方法永远也改变不了箭头函数this的指向。
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var id = 10;</span><br><span class="line">let fun = () =&gt; &#123;</span><br><span class="line">    console.log(this.id)</span><br><span class="line">&#125;;</span><br><span class="line">fun();     // 10</span><br><span class="line">fun.call(&#123; id: 20 &#125;);     // 10</span><br><span class="line">fun.apply(&#123; id: 20 &#125;);    // 10</span><br><span class="line">fun.bind(&#123; id: 20 &#125;)();   // 10</span><br></pre></td></tr></table></figure>
-<h5>2.4 箭头函数不能作为构造函数使用</h5>
-构造函数的new都做了些什么？分为四步：
-
-<p> ① JS内部首先会先生成一个对象；<br>  ② 再把函数中的this指向该对象；<br>  ③ 然后执行构造函数中的语句；<br>  ④ 最终返回该对象实例。</p>
-<p>  但是！！因为箭头函数没有自己的this，它的<strong>this其实是继承了外层执行环境中的this</strong>，且this指向永远不会随在哪里调用、被谁调用而改变，所以箭头函数不能作为构造函数使用，或者说构造函数不能定义成箭头函数，否则用new调用时会报错！</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let Fun = (name, age) =&gt; &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.age = age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 报错</span><br><span class="line">let p = new Fun(&#x27;dingFY&#x27;, 24);</span><br></pre></td></tr></table></figure>
-<h5>2.5 箭头函数不绑定arguments，取而代之用rest参数...代替arguments对象，来访问箭头函数的参数列表</h5>
-
-<p>箭头函数没有自己的arguments对象。在箭头函数中访问arguments实际上获得的是外层局部（函数）执行环境中的值。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 普通函数</span><br><span class="line">function A(a)&#123;</span><br><span class="line">  console.log(arguments);</span><br><span class="line">&#125;</span><br><span class="line">A(1,2,3,4,5,8);  //  [1, 2, 3, 4, 5, 8, callee: ƒ, Symbol(Symbol.iterator): ƒ]</span><br><span class="line"></span><br><span class="line">// 箭头函数</span><br><span class="line">let B = (b)=&gt;&#123;</span><br><span class="line">  console.log(arguments);</span><br><span class="line">&#125;</span><br><span class="line">B(2,92,32,32);   // Uncaught ReferenceError: arguments is not defined</span><br><span class="line"></span><br><span class="line">// rest参数...</span><br><span class="line">let C = (...c) =&gt; &#123;</span><br><span class="line">  console.log(c);</span><br><span class="line">&#125;</span><br><span class="line">C(3,82,32,11323);  // [3, 82, 32, 11323]</span><br></pre></td></tr></table></figure>
-<h5>2.6 箭头函数不能用作Generator函数，不能使用yield关键字</h5>]]></content>
-      <categories>
-        <category>前端</category>
-        <category>面试问题</category>
-      </categories>
-      <tags>
-        <tag>箭头函数</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Let Var Const的区别</title>
     <url>/2022/12/11/01-let%20const%20%20var%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h4 id="1-var变量提升机制"><a href="#1-var变量提升机制" class="headerlink" title="1.var变量提升机制"></a>1.var变量提升机制</h4><p><strong>变量提升</strong>：在全局作用域或是在块级作用域中，使用var关键字声明的变量，都会被提升到该作用于的顶部</p>
@@ -118,21 +61,6 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
       </tags>
   </entry>
   <entry>
-    <title>整数二分</title>
-    <url>/2022/12/11/05-%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86/</url>
-    <content><![CDATA[<span id="more"></span>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bool check(int x) &#123;/* ... */&#125; // 检查x是否满足某种性质</span><br><span class="line"></span><br><span class="line">// 区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用：</span><br><span class="line">int bsearch_1(int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        //左边区间的右端点</span><br><span class="line">        int mid = l + r &gt;&gt; 1;</span><br><span class="line">        if (check(mid)) r = mid;    // check()判断mid是否满足性质</span><br><span class="line">        else l = mid + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br><span class="line">// 区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用：</span><br><span class="line">int bsearch_2(int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">           //右边区间的左端点 记住是l+r+1 不然遇到特殊值会死循环</span><br><span class="line">        int mid = l + r + 1 &gt;&gt; 1;</span><br><span class="line">        if (check(mid)) l = mid;</span><br><span class="line">        else r = mid - 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-        <category>二分</category>
-        <category>整数二分</category>
-      </categories>
-      <tags>
-        <tag>整数二分</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>快速排序</title>
     <url>/2022/12/11/03-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
     <content><![CDATA[<ul>
@@ -151,16 +79,60 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
       </tags>
   </entry>
   <entry>
-    <title>高精度加法</title>
-    <url>/2022/12/11/07-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%8A%A0%E6%B3%95/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// C = A + B, A &gt;= 0, B &gt;= 0</span><br><span class="line">vector&lt;int&gt; add(vector&lt;int&gt; &amp;A,vector&lt;int&gt; &amp;B)</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;int&gt; C;</span><br><span class="line">    </span><br><span class="line">    int t=0; //进位标志</span><br><span class="line">    for(int i=0;i&lt;A.size()||i&lt;B.size();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(i&lt;A.size()) t+=A[i];</span><br><span class="line">        if(i&lt;B.size()) t+=B[i];</span><br><span class="line">        </span><br><span class="line">        C.push_back(t%10);</span><br><span class="line">        t/=10;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if(t) C.push_back(1); //最高位进位</span><br><span class="line">    </span><br><span class="line">    return C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>箭头函数</title>
+    <url>/2022/12/11/02-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<style>
+    h3 
+    {
+    padding-bottom:5px;
+    border-bottom: solid gray;
+    }
+</style>
+
+
+<h3 id="一、基本语法"><a href="#一、基本语法" class="headerlink" title="一、基本语法"></a>一、基本语法</h3><h5>1.1 定义函数</h5>
+定义箭头函在数语法上要比普通函数简洁得多，ES6中允许使用箭头=>来定义箭头函数，箭头函数省去了 function 关键字，函数的参数放在=>前面的括号中，函数体跟在=>后的花括号中。
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 箭头函数</span><br><span class="line">let fun = (name) =&gt; &#123;</span><br><span class="line">    return `Hello $&#123;name&#125; !`;</span><br><span class="line">&#125;;</span><br><span class="line">// 普通函数</span><br><span class="line">let fun = function (name) &#123;</span><br><span class="line">    return `Hello $&#123;name&#125; !`;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5> 1.2 箭头函数的参数</h5>
+① 如果箭头函数没有参数，直接写一个空括号即可。   
+
+<p>② 如果箭头函数的参数只有一个，也可以省去包裹参数的括号。<br>③ 如果箭头函数有多个参数，将参数依次用逗号( ，)分隔，包裹在括号中即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 没有参数</span><br><span class="line">let fun1 = () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;dingFY&#x27;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 只有一个参数，可以省去参数括号</span><br><span class="line">let fun2 = name =&gt; &#123;</span><br><span class="line">    console.log(`Hello $&#123;name&#125; !`)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 有多个参数，逗号分隔</span><br><span class="line">let fun3 = (val1, val2, val3) =&gt; &#123;</span><br><span class="line">    return [val1, val2, val3];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5> 1.3 箭头函数的函数体</h5>
+① 如果箭头函数的函数体只有一句代码，就是简单返回某个变量或者返回一个简单的JS表达式，可以省去函数体的大括号
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let fun = val =&gt; val;</span><br><span class="line">// 等同于</span><br><span class="line">let fun = function (val) &#123; return val &#125;;</span><br><span class="line"></span><br><span class="line">let sum = (num1, num2) =&gt; num1 + num2;</span><br><span class="line">// 等同于</span><br><span class="line">let sum = function(num1, num2) &#123;</span><br><span class="line">  return num1 + num2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>② 如果箭头函数的函数体只有一句代码，就是返回一个对象，可以像下面这样写</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 用小括号包裹要返回的对象，不报错</span><br><span class="line">let getTempItem = id =&gt; (&#123; id: id, name: &quot;Temp&quot; &#125;);</span><br><span class="line"></span><br><span class="line">// 但绝不能这样写，会报错，因为对象的大括号会被解释为函数体的大括号</span><br><span class="line">let getTempItem = id =&gt; &#123; id: id, name: &quot;Temp&quot; &#125;;</span><br></pre></td></tr></table></figure>
+<p>③ 如果箭头函数的函数体只有一条语句并且不需要返回值（最常见是调用一个函数），可以给这条语句前面加一个void关键字</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let fun = () =&gt; void doesNotReturn();</span><br></pre></td></tr></table></figure>
+<h3 id="二、箭头函数与普通函数的区别"><a href="#二、箭头函数与普通函数的区别" class="headerlink" title="二、箭头函数与普通函数的区别"></a>二、箭头函数与普通函数的区别</h3><h5>2.1  箭头函数没有 prototype (原型)，所以箭头函数本身没有this​​​​​​​ </h5>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 箭头函数</span><br><span class="line">let a = () =&gt; &#123;&#125;;</span><br><span class="line">console.log(a.prototype); // undefined</span><br><span class="line"></span><br><span class="line">// 普通函数</span><br><span class="line">function a() &#123;&#125;;</span><br><span class="line">console.log(a.prototype); // &#123;constructor:f&#125;</span><br></pre></td></tr></table></figure>
+<h5>2.2 箭头函数不会创建自己的this</h5>
+箭头函数没有自己的this，箭头函数的this在指向定义<strong>(注意：是定义时，不是调用时)</strong>的时候继承自外层第一个普通函数的this。所以，箭头函数中 this 的指向在它被定义的时候就已经确定了，之后永远不会改变。
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">  a: 10,</span><br><span class="line">  b: () =&gt; &#123;</span><br><span class="line">    console.log(this.a); // undefined</span><br><span class="line">    console.log(this); // Window &#123;postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, frames: Window, …&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  c: function() &#123;</span><br><span class="line">    console.log(this.a); // 10</span><br><span class="line">    console.log(this); // &#123;a: 10, b: ƒ, c: ƒ&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.b(); </span><br><span class="line">obj.c();</span><br></pre></td></tr></table></figure>
+<h5>2.3 call | apply | bind 无法改变箭头函数中this的指向</h5>
+call | apply | bind方法可以用来动态修改函数执行时this的指向，但由于<strong>箭头函数的this定义时就已经确定且永远不会改变</strong>。所以使用这些方法永远也改变不了箭头函数this的指向。
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var id = 10;</span><br><span class="line">let fun = () =&gt; &#123;</span><br><span class="line">    console.log(this.id)</span><br><span class="line">&#125;;</span><br><span class="line">fun();     // 10</span><br><span class="line">fun.call(&#123; id: 20 &#125;);     // 10</span><br><span class="line">fun.apply(&#123; id: 20 &#125;);    // 10</span><br><span class="line">fun.bind(&#123; id: 20 &#125;)();   // 10</span><br></pre></td></tr></table></figure>
+<h5>2.4 箭头函数不能作为构造函数使用</h5>
+构造函数的new都做了些什么？分为四步：
+
+<p> ① JS内部首先会先生成一个对象；<br>  ② 再把函数中的this指向该对象；<br>  ③ 然后执行构造函数中的语句；<br>  ④ 最终返回该对象实例。</p>
+<p>  但是！！因为箭头函数没有自己的this，它的<strong>this其实是继承了外层执行环境中的this</strong>，且this指向永远不会随在哪里调用、被谁调用而改变，所以箭头函数不能作为构造函数使用，或者说构造函数不能定义成箭头函数，否则用new调用时会报错！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let Fun = (name, age) =&gt; &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.age = age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 报错</span><br><span class="line">let p = new Fun(&#x27;dingFY&#x27;, 24);</span><br></pre></td></tr></table></figure>
+<h5>2.5 箭头函数不绑定arguments，取而代之用rest参数...代替arguments对象，来访问箭头函数的参数列表</h5>
+
+<p>箭头函数没有自己的arguments对象。在箭头函数中访问arguments实际上获得的是外层局部（函数）执行环境中的值。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 普通函数</span><br><span class="line">function A(a)&#123;</span><br><span class="line">  console.log(arguments);</span><br><span class="line">&#125;</span><br><span class="line">A(1,2,3,4,5,8);  //  [1, 2, 3, 4, 5, 8, callee: ƒ, Symbol(Symbol.iterator): ƒ]</span><br><span class="line"></span><br><span class="line">// 箭头函数</span><br><span class="line">let B = (b)=&gt;&#123;</span><br><span class="line">  console.log(arguments);</span><br><span class="line">&#125;</span><br><span class="line">B(2,92,32,32);   // Uncaught ReferenceError: arguments is not defined</span><br><span class="line"></span><br><span class="line">// rest参数...</span><br><span class="line">let C = (...c) =&gt; &#123;</span><br><span class="line">  console.log(c);</span><br><span class="line">&#125;</span><br><span class="line">C(3,82,32,11323);  // [3, 82, 32, 11323]</span><br></pre></td></tr></table></figure>
+<h5>2.6 箭头函数不能用作Generator函数，不能使用yield关键字</h5>]]></content>
       <categories>
-        <category>算法</category>
-        <category>高精度</category>
-        <category>高精度加法</category>
+        <category>前端</category>
+        <category>面试问题</category>
       </categories>
       <tags>
-        <tag>高精度</tag>
+        <tag>箭头函数</tag>
       </tags>
   </entry>
   <entry>
@@ -179,17 +151,18 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
       </tags>
   </entry>
   <entry>
-    <title>高精度乘低精度</title>
-    <url>/2022/12/11/09-%E9%AB%98%E7%B2%BE%E5%BA%A6%E4%B9%98%E6%B3%95/</url>
-    <content><![CDATA[<p>去前导0</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// C = A * b, A &gt;= 0, b &gt;= 0</span><br><span class="line">vector&lt;int&gt; mul(vector&lt;int&gt; &amp;A, int b)</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;int&gt; C;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    int t = 0;</span><br><span class="line">    //循环结束条件为进位结束或A的每一位都完成</span><br><span class="line">    for (int i = 0; i &lt; A.size() || t; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        if (i &lt; A.size()) t += A[i] * b;</span><br><span class="line">        C.push_back(t % 10);</span><br><span class="line">        t /= 10;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    while (C.size() &gt; 1 &amp;&amp; C.back() == 0) C.pop_back();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    return C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>整数二分</title>
+    <url>/2022/12/11/05-%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86/</url>
+    <content><![CDATA[<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bool check(int x) &#123;/* ... */&#125; // 检查x是否满足某种性质</span><br><span class="line"></span><br><span class="line">// 区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用：</span><br><span class="line">int bsearch_1(int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        //左边区间的右端点</span><br><span class="line">        int mid = l + r &gt;&gt; 1;</span><br><span class="line">        if (check(mid)) r = mid;    // check()判断mid是否满足性质</span><br><span class="line">        else l = mid + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br><span class="line">// 区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用：</span><br><span class="line">int bsearch_2(int l, int r)</span><br><span class="line">&#123;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">           //右边区间的左端点 记住是l+r+1 不然遇到特殊值会死循环</span><br><span class="line">        int mid = l + r + 1 &gt;&gt; 1;</span><br><span class="line">        if (check(mid)) l = mid;</span><br><span class="line">        else r = mid - 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>算法</category>
-        <category>高精度</category>
-        <category>高精度乘法</category>
+        <category>二分</category>
+        <category>整数二分</category>
       </categories>
       <tags>
-        <tag>高精度</tag>
+        <tag>整数二分</tag>
       </tags>
   </entry>
   <entry>
@@ -208,31 +181,30 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
       </tags>
   </entry>
   <entry>
-    <title>高精度除以低精度</title>
-    <url>/2022/12/11/10-%E9%AB%98%E7%B2%BE%E5%BA%A6%E9%99%A4%E6%B3%95/</url>
-    <content><![CDATA[<p>去前导0</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// A / b = C ... r, A &gt;= 0, b &gt; 0</span><br><span class="line">vector&lt;int&gt; div(vector&lt;int&gt; &amp;A, int b, int &amp;r)</span><br><span class="line">&#123;    </span><br><span class="line">    vector&lt;int&gt; C;    </span><br><span class="line">    r = 0;        </span><br><span class="line">    //逆序再逆序    </span><br><span class="line">    for (int i = A.size() - 1; i &gt;= 0; i -- )    </span><br><span class="line">    &#123;        </span><br><span class="line">        r = r * 10 + A[i];        </span><br><span class="line">        C.push_back(r / b);        </span><br><span class="line">        r %= b;    </span><br><span class="line">    &#125;    </span><br><span class="line">        reverse(C.begin(), C.end());    </span><br><span class="line">        while (C.size() &gt; 1 &amp;&amp; C.back() == 0) C.pop_back();    </span><br><span class="line">        return C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>高精度加法</title>
+    <url>/2022/12/11/07-%E9%AB%98%E7%B2%BE%E5%BA%A6%E5%8A%A0%E6%B3%95/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// C = A + B, A &gt;= 0, B &gt;= 0</span><br><span class="line">vector&lt;int&gt; add(vector&lt;int&gt; &amp;A,vector&lt;int&gt; &amp;B)</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;int&gt; C;</span><br><span class="line">    </span><br><span class="line">    int t=0; //进位标志</span><br><span class="line">    for(int i=0;i&lt;A.size()||i&lt;B.size();i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(i&lt;A.size()) t+=A[i];</span><br><span class="line">        if(i&lt;B.size()) t+=B[i];</span><br><span class="line">        </span><br><span class="line">        C.push_back(t%10);</span><br><span class="line">        t/=10;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if(t) C.push_back(1); //最高位进位</span><br><span class="line">    </span><br><span class="line">    return C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>算法</category>
         <category>高精度</category>
-        <category>高精度除法</category>
+        <category>高精度加法</category>
       </categories>
       <tags>
         <tag>高精度</tag>
       </tags>
   </entry>
   <entry>
-    <title>一维前缀和</title>
-    <url>/2022/12/11/11-%E4%B8%80%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/</url>
-    <content><![CDATA[<p>板子如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">S[i] = a[1] + a[2] + ... a[i]</span><br><span class="line">a[l] + ... + a[r] = S[r] - S[l - 1]</span><br></pre></td></tr></table></figure>]]></content>
+    <title>高精度乘低精度</title>
+    <url>/2022/12/11/09-%E9%AB%98%E7%B2%BE%E5%BA%A6%E4%B9%98%E6%B3%95/</url>
+    <content><![CDATA[<p>去前导0</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// C = A * b, A &gt;= 0, b &gt;= 0</span><br><span class="line">vector&lt;int&gt; mul(vector&lt;int&gt; &amp;A, int b)</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;int&gt; C;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    int t = 0;</span><br><span class="line">    //循环结束条件为进位结束或A的每一位都完成</span><br><span class="line">    for (int i = 0; i &lt; A.size() || t; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        if (i &lt; A.size()) t += A[i] * b;</span><br><span class="line">        C.push_back(t % 10);</span><br><span class="line">        t /= 10;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    while (C.size() &gt; 1 &amp;&amp; C.back() == 0) C.pop_back();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    return C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>算法</category>
-        <category>前缀和</category>
-        <category>一维前缀和</category>
+        <category>高精度</category>
+        <category>高精度乘法</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
+        <tag>高精度</tag>
       </tags>
   </entry>
   <entry>
@@ -250,17 +222,31 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
       </tags>
   </entry>
   <entry>
-    <title>二维前缀和</title>
-    <url>/2022/12/11/12-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/</url>
+    <title>一维前缀和</title>
+    <url>/2022/12/11/11-%E4%B8%80%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/</url>
     <content><![CDATA[<p>板子如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">S[i, j] = 第i行j列格子左上部分所有元素的和</span><br><span class="line">s[i][j] = s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1] + a[i][j];</span><br><span class="line"></span><br><span class="line">以(x1, y1)为左上角，(x2, y2)为右下角的子矩阵的和为：</span><br><span class="line">S[x2, y2] - S[x1 - 1, y2] - S[x2, y1 - 1] + S[x1 - 1, y1 - 1]</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">S[i] = a[1] + a[2] + ... a[i]</span><br><span class="line">a[l] + ... + a[r] = S[r] - S[l - 1]</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>算法</category>
         <category>前缀和</category>
-        <category>二维前缀和</category>
+        <category>一维前缀和</category>
       </categories>
       <tags>
         <tag>前缀和</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高精度除以低精度</title>
+    <url>/2022/12/11/10-%E9%AB%98%E7%B2%BE%E5%BA%A6%E9%99%A4%E6%B3%95/</url>
+    <content><![CDATA[<p>去前导0</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// A / b = C ... r, A &gt;= 0, b &gt; 0</span><br><span class="line">vector&lt;int&gt; div(vector&lt;int&gt; &amp;A, int b, int &amp;r)</span><br><span class="line">&#123;    </span><br><span class="line">    vector&lt;int&gt; C;    </span><br><span class="line">    r = 0;        </span><br><span class="line">    //逆序再逆序    </span><br><span class="line">    for (int i = A.size() - 1; i &gt;= 0; i -- )    </span><br><span class="line">    &#123;        </span><br><span class="line">        r = r * 10 + A[i];        </span><br><span class="line">        C.push_back(r / b);        </span><br><span class="line">        r %= b;    </span><br><span class="line">    &#125;    </span><br><span class="line">        reverse(C.begin(), C.end());    </span><br><span class="line">        while (C.size() &gt; 1 &amp;&amp; C.back() == 0) C.pop_back();    </span><br><span class="line">        return C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+        <category>高精度</category>
+        <category>高精度除法</category>
+      </categories>
+      <tags>
+        <tag>高精度</tag>
       </tags>
   </entry>
   <entry>
@@ -275,6 +261,20 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
       </categories>
       <tags>
         <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二维前缀和</title>
+    <url>/2022/12/11/12-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/</url>
+    <content><![CDATA[<p>板子如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">S[i, j] = 第i行j列格子左上部分所有元素的和</span><br><span class="line">s[i][j] = s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1] + a[i][j];</span><br><span class="line"></span><br><span class="line">以(x1, y1)为左上角，(x2, y2)为右下角的子矩阵的和为：</span><br><span class="line">S[x2, y2] - S[x1 - 1, y2] - S[x2, y1 - 1] + S[x1 - 1, y1 - 1]</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+        <category>前缀和</category>
+        <category>二维前缀和</category>
+      </categories>
+      <tags>
+        <tag>前缀和</tag>
       </tags>
   </entry>
   <entry>
@@ -304,19 +304,6 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
       </tags>
   </entry>
   <entry>
-    <title>离散化</title>
-    <url>/2022/12/11/17-%E7%A6%BB%E6%95%A3%E5%8C%96/</url>
-    <content><![CDATA[<p>板子如下</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vector&lt;int&gt; alls; // 存储所有待离散化的值</span><br><span class="line"></span><br><span class="line">sort(alls.begin(), alls.end()); // 将所有值排序</span><br><span class="line">alls.erase(unique(alls.begin(), alls.end()), alls.end());   // 去掉重复元素</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 二分求出x对应的离散化的值</span><br><span class="line">int find(int x) // 找到第一个大于等于x的位置</span><br><span class="line">&#123;</span><br><span class="line">    int l = 0, r = alls.size() - 1;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        int mid = l + r &gt;&gt; 1;</span><br><span class="line">        if (alls[mid] &gt;= x) r = mid;</span><br><span class="line">        else l = mid + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return r + 1; // 映射到1, 2, ...n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-        <category>离散化</category>
-      </categories>
-      <tags>
-        <tag>离散化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>区间合并</title>
     <url>/2022/12/11/18-%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6/</url>
     <content><![CDATA[<p>板子如下</p>
@@ -327,6 +314,19 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
       </categories>
       <tags>
         <tag>区间合并</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离散化</title>
+    <url>/2022/12/11/17-%E7%A6%BB%E6%95%A3%E5%8C%96/</url>
+    <content><![CDATA[<p>板子如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vector&lt;int&gt; alls; // 存储所有待离散化的值</span><br><span class="line"></span><br><span class="line">sort(alls.begin(), alls.end()); // 将所有值排序</span><br><span class="line">alls.erase(unique(alls.begin(), alls.end()), alls.end());   // 去掉重复元素</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 二分求出x对应的离散化的值</span><br><span class="line">int find(int x) // 找到第一个大于等于x的位置</span><br><span class="line">&#123;</span><br><span class="line">    int l = 0, r = alls.size() - 1;</span><br><span class="line">    while (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        int mid = l + r &gt;&gt; 1;</span><br><span class="line">        if (alls[mid] &gt;= x) r = mid;</span><br><span class="line">        else l = mid + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return r + 1; // 映射到1, 2, ...n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+        <category>离散化</category>
+      </categories>
+      <tags>
+        <tag>离散化</tag>
       </tags>
   </entry>
 </search>
