@@ -35,6 +35,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value1 = &quot;张三&quot;</span><br><span class="line">let value2 = &quot;李四&quot;</span><br><span class="line">const value3 = &quot;王五&quot;</span><br><span class="line">console.log(window.value1) // 张三</span><br><span class="line">console.log(window.value2) // undefined</span><br><span class="line">console.log(window.value3) // undefined</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>前端</category>
+        <category>面试问题</category>
       </categories>
       <tags>
         <tag>Let Var Const的区别</tag>
@@ -91,6 +92,7 @@ call | apply | bind方法可以用来动态修改函数执行时this的指向，
 <h5>2.6 箭头函数不能用作Generator函数，不能使用yield关键字</h5>]]></content>
       <categories>
         <category>前端</category>
+        <category>面试问题</category>
       </categories>
       <tags>
         <tag>箭头函数</tag>
